@@ -2,24 +2,12 @@
 #define PERSONMODEL_H
 
 #include <QAbstractListModel>
+#include <person.h>
 
-class person{
-    int m_id;
-    QString m_name;
-    QString m_address;
-    QString m_phone;
-public:
-    person(const int& id, const QString& name, const QString& address, const QString& phone);
-    int id() const;
-    QString name() const;
-    QString address() const;
-    QString phone() const;
-};
-
-class personModel : public QAbstractListModel
+class PersonModel : public QAbstractListModel
 {
     Q_OBJECT
-    QList<person> people;
+    QList<Person> m_people;
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -32,8 +20,10 @@ public:
         phoneRole
     };
 
-    personModel(QObject* parent = 0);
-    void addPerson(const person& pers);
+    PersonModel(QObject* parent = 0);
+    void addPerson(const Person& pers);
+    QList<Person>& getPersonList();
+    void updateList();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 };

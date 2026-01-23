@@ -1,28 +1,6 @@
 #include "personmodel.h"
 
-person::person(const int& id, const QString& name, const QString& address, const QString& phone) : m_id(id), m_name(name), m_address(address), m_phone(phone) {}
-
-int person::id() const
-{
-    return m_id;
-}
-
-QString person::name() const
-{
-    return m_name;
-}
-
-QString person::address() const
-{
-    return m_address;
-}
-
-QString person::phone() const
-{
-    return m_phone;
-}
-
-QHash<int, QByteArray> personModel::roleNames() const
+QHash<int, QByteArray> PersonModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[idRole] = "id";
@@ -32,27 +10,38 @@ QHash<int, QByteArray> personModel::roleNames() const
     return roles;
 }
 
-personModel::personModel(QObject *parent) : QAbstractListModel(parent){}
+PersonModel::PersonModel(QObject *parent) : QAbstractListModel(parent){}
 
-void personModel::addPerson(const person &pers)
+void PersonModel::addPerson(const Person &pers)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    people.push_back(pers);
+    m_people.push_back(pers);
     endInsertRows();
 }
 
-int personModel::rowCount(const QModelIndex &parent) const
+QList<Person> &PersonModel::getPersonList()
 {
-    return people.count();
+    return m_people;
 }
 
-QVariant personModel::data(const QModelIndex &index, int role) const
+void PersonModel::updateList()
 {
-    if(index.row() < 0 || index.row() >= people.count()){
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    endInsertRows();
+}
+
+int PersonModel::rowCount(const QModelIndex &parent) const
+{
+    return m_people.count();
+}
+
+QVariant PersonModel::data(const QModelIndex &index, int role) const
+{
+    if(index.row() < 0 || index.row() >= m_people.count()){
         return QVariant();
     }
 
-    const person &pers = people[index.row()];
+    const Person &pers = m_people[index.row()];
     switch (role) {
         case idRole:      return pers.id();     break;
         case nameRole:      return pers.name();     break;

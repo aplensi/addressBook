@@ -1,4 +1,5 @@
 #include "personmodel.h"
+#include <database.h>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -12,11 +13,14 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    personModel model;
+    PersonModel model;
 
-    model.addPerson(person(1, "qwe", "wer", "wer"));
-    model.addPerson(person(2, "кен", "кен", "апр"));
-    model.addPerson(person(3, "678", "456", "456"));
+    Database db;
+    GetDatabase getDb(db.getDatabase());
+    SetDatabase setDb(db.getDatabase());
+    setDb.changePerson(11, "q", "w", "e");
+    getDb.getData(model.getPersonList());
+    model.updateList();
 
     engine.rootContext()->setContextProperty("person", QVariant::fromValue(&model));
 
