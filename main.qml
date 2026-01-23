@@ -19,26 +19,58 @@ Window {
             Row {
                 anchors.fill: parent
                 Text {
+                    id: idText
                     width: list.width / 4
                     text: "<b>Id:</b>"
                     elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Controller.sortColumn(0)
+                        }
+                    }
                 }
                 Text {
+                    id: nameText
                     width: list.width / 4
                     text: "<b>Name:</b>"
                     elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Controller.sortColumn(1)
+                        }
+                    }
                 }
 
                 Text {
+                    id: addressText
                     width: list.width / 4
                     text: "<b>Address:</b>"
                     elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Controller.sortColumn(2)
+                        }
+                    }
                 }
 
                 Text {
+                    id: phoneText
                     width: list.width / 4
                     text: "<b>Phone:</b>"
                     elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Controller.sortColumn(3)
+                        }
+                    }
                 }
             }
         }

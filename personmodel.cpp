@@ -10,13 +10,18 @@ QHash<int, QByteArray> PersonModel::roleNames() const
     return roles;
 }
 
-PersonModel::PersonModel(QObject *parent) : QAbstractListModel(parent){}
+PersonModel::PersonModel(QList<Person>& people, QObject* parent) : QAbstractListModel(parent), m_people(people){}
 
 void PersonModel::addPerson(const Person &pers)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_people.push_back(pers);
     endInsertRows();
+}
+
+void PersonModel::setPeople(QList<Person> &people)
+{
+    m_people = people;
 }
 
 QList<Person> &PersonModel::getPersonList()
@@ -26,8 +31,8 @@ QList<Person> &PersonModel::getPersonList()
 
 void PersonModel::updateList()
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    endInsertRows();
+    beginResetModel();
+    endResetModel();
 }
 
 int PersonModel::rowCount(const QModelIndex &parent) const

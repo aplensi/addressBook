@@ -7,7 +7,7 @@
 class PersonModel : public QAbstractListModel
 {
     Q_OBJECT
-    QList<Person> m_people;
+    QList<Person>& m_people;
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -20,8 +20,9 @@ public:
         phoneRole
     };
 
-    PersonModel(QObject* parent = 0);
+    PersonModel(QList<Person>& people, QObject* parent = nullptr);
     void addPerson(const Person& pers);
+    void setPeople(QList<Person>& people);
     QList<Person>& getPersonList();
     void updateList();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;

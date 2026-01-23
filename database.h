@@ -23,7 +23,7 @@ class GetDatabase{
 public:
     GetDatabase(QSqlDatabase& db);
     bool getData(QList<Person>& people);
-    int getLastId(); // добавить элемент в бд, посмотреть у него id и доваить в список
+    int getLastId();
 };
 
 class Database
