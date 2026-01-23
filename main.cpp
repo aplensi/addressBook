@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
 
     personModel model;
 
-    model.addPerson(person("qwe", "wer", "wer"));
-    model.addPerson(person("кен", "кен", "апр"));
-    model.addPerson(person("678", "456", "456"));
+    model.addPerson(person(1, "qwe", "wer", "wer"));
+    model.addPerson(person(2, "кен", "кен", "апр"));
+    model.addPerson(person(3, "678", "456", "456"));
 
     engine.rootContext()->setContextProperty("person", QVariant::fromValue(&model));
 

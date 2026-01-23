@@ -1,6 +1,11 @@
 #include "personmodel.h"
 
-person::person(const QString& name, const QString& address, const QString& phone) : m_name(name), m_address(address), m_phone(phone) {}
+person::person(const int& id, const QString& name, const QString& address, const QString& phone) : m_id(id), m_name(name), m_address(address), m_phone(phone) {}
+
+int person::id() const
+{
+    return m_id;
+}
 
 QString person::name() const
 {
@@ -20,6 +25,7 @@ QString person::phone() const
 QHash<int, QByteArray> personModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
+    roles[idRole] = "id";
     roles[nameRole] = "name";
     roles[addressRole] = "address";
     roles[phoneRole] = "phone";
@@ -48,6 +54,7 @@ QVariant personModel::data(const QModelIndex &index, int role) const
 
     const person &pers = people[index.row()];
     switch (role) {
+        case idRole:      return pers.id();     break;
         case nameRole:      return pers.name();     break;
         case addressRole:   return pers.address();  break;
         case phoneRole:     return pers.phone();    break;

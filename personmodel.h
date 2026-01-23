@@ -4,11 +4,13 @@
 #include <QAbstractListModel>
 
 class person{
+    int m_id;
     QString m_name;
     QString m_address;
     QString m_phone;
 public:
-    person(const QString& name, const QString& address, const QString& phone);
+    person(const int& id, const QString& name, const QString& address, const QString& phone);
+    int id() const;
     QString name() const;
     QString address() const;
     QString phone() const;
@@ -24,7 +26,8 @@ protected:
 
 public:
     enum personRole{
-        nameRole = Qt::UserRole + 1,
+        idRole = Qt::UserRole + 1,
+        nameRole,
         addressRole,
         phoneRole
     };
