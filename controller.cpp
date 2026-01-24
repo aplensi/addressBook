@@ -16,7 +16,7 @@ Controller::~Controller()
 
 void Controller::sortColumn(int index)
 {
-    SortPeople peopleSort(m_people);
+    PersonService peopleSort(m_people);
     peopleSort.sort(index);
     m_model.updateList();
 }
@@ -40,14 +40,14 @@ void Controller::changeButton(int id, QString name, QString address, QString pho
 {
     if(name == "" || address == "" || phone == "") return;
     m_setDb.changePerson(id, name, address, phone);
-    ChangePerson changePerson(m_people);
+    PersonService changePerson(m_people);
     changePerson.change(id, name, address, phone);
     m_model.updateList();
 }
 
-SortPeople::SortPeople(QList<Person> &people) : m_people(people){}
+PersonService::PersonService(QList<Person> &people) : m_people(people){}
 
-void SortPeople::sort(int column)
+void PersonService::sort(int column)
 {
     switch (column) {
     case 0:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.id() < b.id();});            break;
@@ -58,9 +58,7 @@ void SortPeople::sort(int column)
     }
 }
 
-ChangePerson::ChangePerson(QList<Person> &people) : m_people(people){}
-
-void ChangePerson::change(int id, QString name, QString address, QString phone)
+void PersonService::change(int id, QString name, QString address, QString phone)
 {
     for(auto& i : m_people){
         if(i.id() == id){

@@ -8,17 +8,11 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-class SortPeople{
+class PersonService{
     QList<Person>& m_people;
 public:
-    SortPeople(QList<Person>& people);
+    PersonService(QList<Person>& people);
     void sort(int column);
-};
-
-class ChangePerson{
-    QList<Person>& m_people;
-public:
-    ChangePerson(QList<Person>& people);
     void change(int id, QString name, QString address, QString phone);
 };
 
