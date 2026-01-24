@@ -15,9 +15,17 @@ public:
     void sort(int column);
 };
 
+class ChangePerson{
+    QList<Person>& m_people;
+public:
+    ChangePerson(QList<Person>& people);
+    void change(int id, QString name, QString address, QString phone);
+};
+
 class Controller : public QObject
 {
     Q_OBJECT
+
     QQmlApplicationEngine& m_engine;
     QList<Person> m_people;
     Database m_db;
@@ -29,6 +37,9 @@ public:
     ~Controller();
 public slots:
     void sortColumn(int index);
+    void deleteButton(int index);
+    void addButton(QString name, QString address, QString phone);
+    void changeButton(int id, QString name, QString address, QString phone);
 };
 
 #endif // CONTROLLER_H

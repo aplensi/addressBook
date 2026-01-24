@@ -14,6 +14,9 @@ public:
     QString name() const;
     QString address() const;
     QString phone() const;
+    void setName(QString name);
+    void setAddress(QString address);
+    void setPhone(QString phone);
 };
 
 #endif // PERSON_H

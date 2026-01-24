@@ -27,8 +27,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    addWindow.qml \
-    changeWindow.qml \
+    AddWindow.qml \
+    ChangeWindow.qml \
     main.qml
 
 RESOURCES += \

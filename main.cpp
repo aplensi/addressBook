@@ -1,4 +1,4 @@
-#include "personmodel.h"
+    #include "personmodel.h"
 #include <controller.h>
 #include <database.h>
 #include <QApplication>
@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QQmlApplicationEngine engine;
-    engine.load(QUrl(u"qrc:/main.qml"_qs));
+    engine.load(QUrl("qrc:/main.qml"));
 
     if (engine.rootObjects().isEmpty())
         return -1;

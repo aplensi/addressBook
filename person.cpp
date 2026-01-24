@@ -21,3 +21,18 @@ QString Person::phone() const
 {
     return m_phone;
 }
+
+void Person::setName(QString name)
+{
+    m_name = name;
+}
+
+void Person::setAddress(QString address)
+{
+    m_address = address;
+}
+
+void Person::setPhone(QString phone)
+{
+    m_phone = phone;
+}

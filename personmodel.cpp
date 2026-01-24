@@ -55,3 +55,17 @@ QVariant PersonModel::data(const QModelIndex &index, int role) const
         default:            return QVariant();      break;
     }
 }
+
+QVariantMap PersonModel::get(int index) const
+{
+    if (index < 0 || index >= m_people.size())
+        return {};
+
+    const Person &p = m_people.at(index);
+    return {
+        { "id", p.id() },
+        { "name", p.name() },
+        { "address", p.address() },
+        { "phone", p.phone() }
+    };
+}
