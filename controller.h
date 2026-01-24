@@ -29,9 +29,9 @@ class Controller : public QObject
     QQmlApplicationEngine& m_engine;
     QList<Person> m_people;
     Database m_db;
-    PersonModel* m_model;
-    GetDatabase* m_getDb;
-    SetDatabase* m_setDb;
+    PersonModel m_model;
+    GetDatabase m_getDb;
+    SetDatabase m_setDb;
 public:
     Controller(QQmlApplicationEngine& engine, QObject *parent = nullptr);
     ~Controller();

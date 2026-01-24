@@ -46,7 +46,7 @@ QVariant PersonModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    const Person &pers = m_people[index.row()];
+    const Person& pers = m_people.at(index.row());
     switch (role) {
         case idRole:      return pers.id();     break;
         case nameRole:      return pers.name();     break;

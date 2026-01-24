@@ -1,53 +1,48 @@
 #include "controller.h"
 
-Controller::Controller(QQmlApplicationEngine& engine, QObject *parent) : QObject(parent), m_engine(engine)
+Controller::Controller(QQmlApplicationEngine& engine, QObject *parent) :
+    QObject(parent), m_engine(engine), m_getDb(m_db.getDatabase()), m_setDb(m_db.getDatabase()), m_model(m_people)
 {
-    m_getDb = new GetDatabase((m_db.getDatabase()));
-    m_setDb = new SetDatabase((m_db.getDatabase()));
-    m_model = new PersonModel(m_people);
-    m_getDb->getData(m_people);
-    m_model->updateList();
+    m_getDb.getData(m_people);
+    m_model.updateList();
 
     engine.rootContext()->setContextProperty("Controller", this);
-    engine.rootContext()->setContextProperty("person", m_model);
+    engine.rootContext()->setContextProperty("person", QVariant::fromValue(&m_model));
 }
 
 Controller::~Controller()
 {
-    delete m_getDb;
-    delete m_setDb;
-    delete m_model;
 }
 
 void Controller::sortColumn(int index)
 {
     SortPeople peopleSort(m_people);
     peopleSort.sort(index);
-    m_model->updateList();
+    m_model.updateList();
 }
 
 void Controller::deleteButton(int index)
 {
-    m_setDb->removePerson(m_people[index].id());
+    m_setDb.removePerson(m_people[index].id());
     m_people.remove(index);
-    m_model->updateList();
+    m_model.updateList();
 }
 
 void Controller::addButton(QString name, QString address, QString phone)
 {
     if(name == "" || address == "" || phone == "") return;
-    m_setDb->addPerson(name, address, phone);
-    m_model->addPerson(Person(m_getDb->getLastId(), name, address, phone));
-    m_model->updateList();
+    m_setDb.addPerson(name, address, phone);
+    m_model.addPerson(Person(m_getDb.getLastId(), name, address, phone));
+    m_model.updateList();
 }
 
 void Controller::changeButton(int id, QString name, QString address, QString phone)
 {
     if(name == "" || address == "" || phone == "") return;
-    m_setDb->changePerson(id, name, address, phone);
+    m_setDb.changePerson(id, name, address, phone);
     ChangePerson changePerson(m_people);
     changePerson.change(id, name, address, phone);
-    m_model->updateList();
+    m_model.updateList();
 }
 
 SortPeople::SortPeople(QList<Person> &people) : m_people(people){}
