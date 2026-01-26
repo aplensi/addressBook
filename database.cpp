@@ -25,7 +25,15 @@ Database::Database()
         qDebug()<< m_db.lastError().text();
         return;
     }
-    createTable();
+
+    QSqlQuery query("CREATE TABLE IF NOT EXISTS book("
+                    " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    " name TEXT,"
+                    " address TEXT,"
+                    " phone TEXT);");
+    if (!query.exec()) {
+        qDebug() << "Create table error:" << query.lastError().text();
+    }
 }
 
 Database::~Database()
