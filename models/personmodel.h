@@ -2,7 +2,7 @@
 #define PERSONMODEL_H
 
 #include <QAbstractListModel>
-#include <person.h>
+#include <models/person.h>
 
 class PersonModel : public QAbstractListModel
 {

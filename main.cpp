@@ -1,6 +1,6 @@
-#include "personmodel.h"
-#include <controller.h>
-#include <database.h>
+#include <models/personmodel.h>
+#include <controller/controller.h>
+#include <database/database.h>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("Controller", &controller);
     engine.rootContext()->setContextProperty("person", &model);
 
-    engine.load(QUrl("qrc:/main.qml"));
+    engine.load(QUrl("qrc:/view/main.qml"));
 
     if (engine.rootObjects().isEmpty())
         return -1;

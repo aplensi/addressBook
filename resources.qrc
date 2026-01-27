@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>AddWindow.qml</file>
-        <file>ChangeWindow.qml</file>
+        <file>view/main.qml</file>
+        <file>view/AddWindow.qml</file>
+        <file>view/ChangeWindow.qml</file>
     </qresource>
 </RCC>

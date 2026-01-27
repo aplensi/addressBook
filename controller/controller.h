@@ -1,9 +1,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <database.h>
-#include <person.h>
-#include <personmodel.h>
+#include <database/database.h>
+#include <models/person.h>
+#include <models/personmodel.h>
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>

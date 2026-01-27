@@ -2,7 +2,7 @@
 #define DATABASE_H
 
 #include "qsqldatabase.h"
-#include <person.h>
+#include <models/person.h>
 #include <QDebug>
 #include <QSqlError>
 #include <QSqlQuery>
