@@ -7,7 +7,9 @@
 class PersonModel : public QAbstractListModel
 {
     Q_OBJECT
-    QList<Person>& m_people;
+    QList<Person> m_people;
+
+    void updateList();
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -20,13 +22,14 @@ public:
         phoneRole
     };
 
-    PersonModel(QList<Person>& people, QObject* parent = nullptr);
+    PersonModel(QObject* parent = nullptr);
     void addPerson(const Person& pers);
     void setPeople(QList<Person>& people);
     QList<Person>& getPersonList();
-    void updateList();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    void sort(int column);
+    void change(int id, QString name, QString address, QString phone);
     Q_INVOKABLE QVariantMap get(int index) const;
 };
 

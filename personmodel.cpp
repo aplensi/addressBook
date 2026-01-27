@@ -10,7 +10,7 @@ QHash<int, QByteArray> PersonModel::roleNames() const
     return roles;
 }
 
-PersonModel::PersonModel(QList<Person>& people, QObject* parent) : QAbstractListModel(parent), m_people(people){}
+PersonModel::PersonModel(QObject* parent) : QAbstractListModel(parent){}
 
 void PersonModel::addPerson(const Person &pers)
 {
@@ -22,6 +22,7 @@ void PersonModel::addPerson(const Person &pers)
 void PersonModel::setPeople(QList<Person> &people)
 {
     m_people = people;
+    updateList();
 }
 
 QList<Person> &PersonModel::getPersonList()
@@ -69,3 +70,28 @@ QVariantMap PersonModel::get(int index) const
         { "phone", p.phone() }
     };
 }
+
+void PersonModel::sort(int column)
+{
+    switch (column) {
+    case 0:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.id() < b.id();});            break;
+    case 1:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.name() < b.name();});        break;
+    case 2:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.address() < b.address();});  break;
+    case 3:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.phone() < b.phone();});      break;
+    default:                                                                                                                            break;
+    }
+    updateList();
+}
+
+void PersonModel::change(int id, QString name, QString address, QString phone)
+{
+    for(auto& i : m_people){
+        if(i.id() == id){
+            i.setName(name);
+            i.setAddress(address);
+            i.setPhone(phone);
+        }
+    }
+    updateList();
+}
+
