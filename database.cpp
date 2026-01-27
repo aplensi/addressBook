@@ -76,7 +76,7 @@ bool Database::change(int id, const QString &name, const QString &address, const
     }else return 1;
 }
 
-QList<Person>& Database::getData()
+QList<Person> Database::getData()
 {
     QList<Person> persons;
     QSqlQuery query("SELECT * FROM book");

@@ -19,15 +19,10 @@ void PersonModel::addPerson(const Person &pers)
     endInsertRows();
 }
 
-void PersonModel::setPeople(QList<Person> &people)
+void PersonModel::setPeople(QList<Person> people)
 {
-    m_people = people;
+    m_people = std::move(people); // не уверен что так стоит делать
     updateList();
-}
-
-QList<Person> &PersonModel::getPersonList()
-{
-    return m_people;
 }
 
 void PersonModel::updateList()
@@ -92,6 +87,12 @@ void PersonModel::change(int id, QString name, QString address, QString phone)
             i.setPhone(phone);
         }
     }
+    updateList();
+}
+
+void PersonModel::remove(int index)
+{
+    m_people.remove(index);
     updateList();
 }
 

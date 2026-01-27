@@ -24,12 +24,12 @@ public:
 
     PersonModel(QObject* parent = nullptr);
     void addPerson(const Person& pers);
-    void setPeople(QList<Person>& people);
-    QList<Person>& getPersonList();
+    void setPeople(QList<Person> people);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void sort(int column);
     void change(int id, QString name, QString address, QString phone);
+    void remove(int index);
     Q_INVOKABLE QVariantMap get(int index) const;
 };
 

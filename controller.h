@@ -8,27 +8,15 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-class PersonService{
-    QList<Person>& m_people;
-public:
-    PersonService(QList<Person>& people);
-    void sort(int column);
-    void change(int id, QString name, QString address, QString phone);
-};
-
 class Controller : public QObject
 {
     Q_OBJECT
 
-    QQmlApplicationEngine& m_engine;
-    QList<Person> m_people;
-    Database m_db;
-    PersonModel m_model;
-    GetDatabase m_getDb;
-    SetDatabase m_setDb;
+    PersonModel& m_model;
+    IPersonsSink& m_personSink;
+    IPersonsSource& m_personSource;
 public:
-    Controller(QQmlApplicationEngine& engine, QObject *parent = nullptr);
-    ~Controller();
+    Controller(IPersonsSink& personSink, IPersonsSource& personSource, PersonModel& model, QObject *parent = nullptr);
 public slots:
     void sortColumn(int index);
     void deleteButton(int index);
