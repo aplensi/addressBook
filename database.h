@@ -11,7 +11,7 @@
 class IPersonsSource{
 public:
     virtual ~IPersonsSource() = default;
-    virtual bool add(const QString& name, const QString& address, const QString& phone) = 0;
+    virtual Person add(const QString& name, const QString& address, const QString& phone) = 0;
     virtual bool remove(int id) = 0;
     virtual bool change(int id, const QString& name, const QString& address, const QString& phone) = 0;
 };
@@ -19,7 +19,7 @@ public:
 class IPersonsSink{
 public:
     virtual ~IPersonsSink() = default;
-    virtual QList<Person> getData() = 0;
+    virtual QList<Person>& getData() = 0;
 };
 
 class Database : public IPersonsSink, public IPersonsSource{
@@ -32,10 +32,10 @@ public:
     ~Database();
 
 public:
-    bool add(const QString& name, const QString& address, const QString& phone) override;
+    Person add(const QString& name, const QString& address, const QString& phone) override;
     bool remove(int id) override;
     bool change(int id, const QString &name, const QString &address, const QString &phone) override;
-    QList<Person> getData() override;
+    QList<Person>& getData() override;
 };
 
 #endif // DATABASE_H

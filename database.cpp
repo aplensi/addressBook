@@ -36,7 +36,7 @@ Database::~Database()
     m_db.close();
 }
 
-bool Database::add(const QString& name, const QString& address, const QString& phone)
+Person Database::add(const QString& name, const QString& address, const QString& phone)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO book (name, address, phone)"
@@ -46,8 +46,7 @@ bool Database::add(const QString& name, const QString& address, const QString& p
     query.addBindValue(phone);
     if (!query.exec()) {
         qDebug() << "Set person error:" << query.lastError().text();
-        return 0;
-    }else return 1;
+    }else return Person(getLastId(), name, address, phone);
 }
 
 bool Database::remove(int id)
@@ -77,7 +76,7 @@ bool Database::change(int id, const QString &name, const QString &address, const
     }else return 1;
 }
 
-QList<Person> Database::getData()
+QList<Person>& Database::getData()
 {
     QList<Person> persons;
     QSqlQuery query("SELECT * FROM book");
