@@ -15,13 +15,13 @@ PersonModel::PersonModel(QObject* parent) : QAbstractListModel(parent){}
 void PersonModel::addPerson(const Person &pers)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_people.push_back(pers);
+    m_persons.push_back(pers);
     endInsertRows();
 }
 
-void PersonModel::setPeople(QList<Person> people)
+void PersonModel::setPeople(QList<Person> persons)
 {
-    m_people = std::move(people); // не уверен что так стоит делать
+    m_persons = std::move(persons); // не уверен что так стоит делать
     updateList();
 }
 
@@ -33,16 +33,16 @@ void PersonModel::updateList()
 
 int PersonModel::rowCount(const QModelIndex &parent) const
 {
-    return m_people.count();
+    return m_persons.count();
 }
 
 QVariant PersonModel::data(const QModelIndex &index, int role) const
 {
-    if(index.row() < 0 || index.row() >= m_people.count()){
+    if(index.row() < 0 || index.row() >= m_persons.count()){
         return QVariant();
     }
 
-    const Person& pers = m_people.at(index.row());
+    const Person& pers = m_persons.at(index.row());
     switch (role) {
         case idRole:      return pers.id();     break;
         case nameRole:      return pers.name();     break;
@@ -54,10 +54,10 @@ QVariant PersonModel::data(const QModelIndex &index, int role) const
 
 QVariantMap PersonModel::get(int index) const
 {
-    if (index < 0 || index >= m_people.size())
+    if (index < 0 || index >= m_persons.size())
         return {};
 
-    const Person &p = m_people.at(index);
+    const Person &p = m_persons.at(index);
     return {
         { "id", p.id() },
         { "name", p.name() },
@@ -69,10 +69,10 @@ QVariantMap PersonModel::get(int index) const
 void PersonModel::sort(int column)
 {
     switch (column) {
-    case 0:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.id() < b.id();});            break;
-    case 1:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.name() < b.name();});        break;
-    case 2:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.address() < b.address();});  break;
-    case 3:     std::sort(m_people.begin(), m_people.end(), [](const Person &a, const Person &b) {return a.phone() < b.phone();});      break;
+    case 0:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.id() < b.id();});            break;
+    case 1:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.name() < b.name();});        break;
+    case 2:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.address() < b.address();});  break;
+    case 3:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.phone() < b.phone();});      break;
     default:                                                                                                                            break;
     }
     updateList();
@@ -80,7 +80,7 @@ void PersonModel::sort(int column)
 
 void PersonModel::change(int id, QString name, QString address, QString phone)
 {
-    for(auto& i : m_people){
+    for(auto& i : m_persons){
         if(i.id() == id){
             i.setName(name);
             i.setAddress(address);
@@ -92,7 +92,7 @@ void PersonModel::change(int id, QString name, QString address, QString phone)
 
 void PersonModel::remove(int index)
 {
-    m_people.remove(index);
+    m_persons.remove(index);
     updateList();
 }
 

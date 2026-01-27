@@ -7,7 +7,7 @@
 class PersonModel : public QAbstractListModel
 {
     Q_OBJECT
-    QList<Person> m_people;
+    QList<Person> m_persons;
 
     void updateList();
 
@@ -24,7 +24,7 @@ public:
 
     PersonModel(QObject* parent = nullptr);
     void addPerson(const Person& pers);
-    void setPeople(QList<Person> people);
+    void setPeople(QList<Person> persons);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void sort(int column);
