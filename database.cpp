@@ -12,11 +12,6 @@ bool Database::createTable()
     }
 }
 
-QSqlDatabase &Database::getDatabase()
-{
-    return m_db;
-}
-
 Database::Database()
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
@@ -41,9 +36,7 @@ Database::~Database()
     m_db.close();
 }
 
-SetDatabase::SetDatabase(QSqlDatabase& db) : m_db(db){}
-
-bool SetDatabase::addPerson(QString name, QString address, QString phone)
+bool Database::add(const QString& name, const QString& address, const QString& phone)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO book (name, address, phone)"
@@ -57,7 +50,7 @@ bool SetDatabase::addPerson(QString name, QString address, QString phone)
     }else return 1;
 }
 
-bool SetDatabase::removePerson(int id)
+bool Database::remove(int id)
 {
     QSqlQuery query("DELETE FROM book"
                     " WHERE id = ?");
@@ -68,7 +61,7 @@ bool SetDatabase::removePerson(int id)
     }else return 1;
 }
 
-bool SetDatabase::changePerson(int id, QString name, QString address, QString phone)
+bool Database::change(int id, const QString &name, const QString &address, const QString &phone)
 {
     QSqlQuery query;
     query.prepare("UPDATE book"
@@ -84,18 +77,17 @@ bool SetDatabase::changePerson(int id, QString name, QString address, QString ph
     }else return 1;
 }
 
-GetDatabase::GetDatabase(QSqlDatabase &db): m_db(db){}
-
-bool GetDatabase::getData(QList<Person>& people)
+QList<Person> Database::getData()
 {
+    QList<Person> persons;
     QSqlQuery query("SELECT * FROM book");
     while(query.next()){
-        people.append(Person(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString()));
+        persons.append(Person(query.value(0).toInt(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString()));
     }
-    return 1;
+    return persons;
 }
 
-int GetDatabase::getLastId()
+int Database::getLastId()
 {
     QSqlQuery query("SELECT * FROM book"
                     " ORDER BY id DESC"
