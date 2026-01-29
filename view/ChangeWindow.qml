@@ -8,10 +8,13 @@ Window {
     visible: false
     width: 350
     height: 100
-    title: "Редактировать запись"
-    property int currentIndex: -1
-    property var personModel: null
 
+    property string titleText: ""
+    property int idRow: 0
+    property string nameRow: ""
+    property string addressRow: ""
+    property string phoneRow: ""
+    property bool changeFunction: false
 
     RowLayout{
         Layout.fillHeight: true
@@ -28,21 +31,18 @@ Window {
             spacing: 5
             TextField{
                 id: nameField
-                text: currentIndex >= 0 && personModel ? personModel.get(currentIndex).name : ""
+                text: nameRow
                 Layout.fillWidth: true
-                onTextChanged: if (currentIndex >= 0 && personModel) personModel.get(currentIndex).name = text
             }
             TextField{
                 id: addressField
-                text: currentIndex >= 0 && personModel ? personModel.get(currentIndex).address : ""
+                text: addressRow
                 Layout.fillWidth: true
-                onTextChanged: if (currentIndex >= 0 && personModel) personModel.get(currentIndex).address = text
             }
             TextField{
                 id: phoneField
-                text: currentIndex >= 0 && personModel ? personModel.get(currentIndex).phone : ""
+                text: phoneRow
                 Layout.fillWidth: true
-                onTextChanged: if (currentIndex >= 0 && personModel) personModel.get(currentIndex).phone = text
             }
         }
         ColumnLayout{
@@ -50,7 +50,12 @@ Window {
             Button{
                 text: "Сохранить"
                 onClicked: {
-                    Controller.changeButton(personModel.get(currentIndex).id, nameField.text, addressField.text, phoneField.text)
+                    if(changeFunction){
+                        Controller.addButton(nameField.text, addressField.text, phoneField.text)
+                    }else{
+                        Controller.changeButton(idRow, nameField.text, addressField.text, phoneField.text)
+                    }
+
                     changeWindow.visible = false
                 }
             }
@@ -58,9 +63,6 @@ Window {
                 text: "Отмена"
                 onClicked: {
                     changeWindow.visible = false
-                    nameField.text = ""
-                    addressField.text = ""
-                    phoneField.text = ""
                 }
             }
         }

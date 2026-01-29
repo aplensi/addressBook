@@ -1,12 +1,18 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Window 2.0
 
 Window {
+    id: mainW
     height: 240
     width: 600
     visible: true
     title: "Книга адресов"
+    property int idRow: 0
+    property string nameRow: ""
+    property string addressRow: ""
+    property string phoneRow: ""
 
     RowLayout{
         anchors.fill: parent
@@ -117,15 +123,21 @@ Window {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: list.currentIndex = index
+                        onClicked: {
+                            list.currentIndex = index
+                            idRow = listId.text
+                            nameRow = listName.text
+                            addressRow = listAddress.text
+                            phoneRow = listPhone.text
+                        }
                     }
                 }
+                currentIndex: -1
             }
         }
         ColumnLayout{
             Layout.preferredWidth: 120
             spacing: 5
-            anchors.verticalCenter: parent.verticalCenter
 
             Button {
                 text: "Удалить"
@@ -133,22 +145,30 @@ Window {
             }
             Button {
                 text: "Добавить"
-                onClicked: addWindow.visible = true
+                onClicked: {
+                    changeWindow.changeFunction = true
+                    changeWindow.visible = true
+                    changeWindow.title = "Добавить запись"
+                    changeWindow.nameRow = ""
+                    changeWindow.addressRow = ""
+                    changeWindow.phoneRow = ""
+                }
             }
             Button {
-            text: "Изменить"
-            onClicked:{
-            changeWindow.currentIndex = list.currentIndex
-            changeWindow.personModel = person
-            changeWindow.visible = true
-            }
+                text: "Изменить"
+                onClicked:{
+                    changeWindow.changeFunction = false
+                    changeWindow.title = "Редактировать запись"
+                    changeWindow.idRow = idRow
+                    changeWindow.nameRow = nameRow
+                    changeWindow.addressRow = addressRow
+                    changeWindow.phoneRow = phoneRow
+                    changeWindow.visible = true
+                }
             }
         }
     }
 
-    AddWindow{
-        id: addWindow
-    }
     ChangeWindow{
         id: changeWindow
     }
