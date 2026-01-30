@@ -16,6 +16,8 @@ Window {
     property string phoneRow: ""
     property bool changeFunction: false
 
+    signal saveButtonClicked(int idRowS, string nameRowS, string addressRowS, string phoneRowS)
+
     RowLayout{
         Layout.fillHeight: true
         Layout.fillWidth: true
@@ -47,15 +49,11 @@ Window {
         }
         ColumnLayout{
             spacing: 5
+
             Button{
                 text: "Сохранить"
                 onClicked: {
-                    if(changeFunction){
-                        Controller.addButton(nameField.text, addressField.text, phoneField.text)
-                    }else{
-                        Controller.changeButton(idRow, nameField.text, addressField.text, phoneField.text)
-                    }
-
+                    changeWindow.saveButtonClicked(idRow, nameField.text, addressField.text, phoneField.text)
                     changeWindow.visible = false
                 }
             }

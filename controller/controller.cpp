@@ -11,9 +11,9 @@ void Controller::sortColumn(int index)
     m_model.sort(index);
 }
 
-void Controller::deleteButton(int index)
+void Controller::deleteButton(int index, int id)
 {
-    m_personSource.remove(index);
+    m_personSource.remove(id);
     m_model.remove(index);
 }
 

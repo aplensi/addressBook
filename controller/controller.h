@@ -19,7 +19,7 @@ public:
     Controller(IPersonsSink& personSink, IPersonsSource& personSource, PersonModel& model, QObject *parent = nullptr);
 public slots:
     void sortColumn(int index);
-    void deleteButton(int index);
+    void deleteButton(int index, int id);
     void addButton(QString name, QString address, QString phone);
     void changeButton(int id, QString name, QString address, QString phone);
 };

@@ -9,7 +9,9 @@ Window {
     width: 600
     visible: true
     title: "Книга адресов"
+    property int buttonState: 0
     property int idRow: 0
+    property var row: null
     property string nameRow: ""
     property string addressRow: ""
     property string phoneRow: ""
@@ -141,12 +143,15 @@ Window {
 
             Button {
                 text: "Удалить"
-                onClicked: Controller.deleteButton(list.currentIndex)
+                onClicked: {
+                    Controller.deleteButton(list.currentIndex, idRow)
+                    list.currentIndex = -1
+                }
             }
             Button {
                 text: "Добавить"
                 onClicked: {
-                    changeWindow.changeFunction = true
+                    buttonState = 0
                     changeWindow.visible = true
                     changeWindow.title = "Добавить запись"
                     changeWindow.nameRow = ""
@@ -157,13 +162,26 @@ Window {
             Button {
                 text: "Изменить"
                 onClicked:{
-                    changeWindow.changeFunction = false
+                    buttonState = 1
+                    changeWindow.visible = true
                     changeWindow.title = "Редактировать запись"
+                    changeWindow.nameRow = ""
+                    changeWindow.addressRow = "" // я не знаю почему, но без обнуления иногда могут отобразиться данные прошлой измененнйо записи
+                    changeWindow.phoneRow = ""
                     changeWindow.idRow = idRow
                     changeWindow.nameRow = nameRow
                     changeWindow.addressRow = addressRow
                     changeWindow.phoneRow = phoneRow
-                    changeWindow.visible = true
+                }
+            }
+            Connections {
+                target: changeWindow
+                function onSaveButtonClicked(idRowS, nameRowS, addressRowS, phoneRowS) {
+                    if(buttonState === 0){
+                        Controller.addButton(nameRowS, addressRowS, phoneRowS)
+                    }else{
+                        Controller.changeButton(idRowS, nameRowS, addressRowS, phoneRowS)
+                    }
                 }
             }
         }
