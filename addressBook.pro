@@ -13,13 +13,15 @@ SOURCES += \
     database/database.cpp \
     main.cpp \
     models/person.cpp \
-    models/personmodel.cpp
+    models/personmodel.cpp \
+    models/proxymodel.cpp
 
 HEADERS += \
     controller/controller.h \
     database/database.h \
     models/person.h \
-    models/personmodel.h
+    models/personmodel.h \
+    models/proxymodel.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

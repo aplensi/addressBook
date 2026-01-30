@@ -35,7 +35,7 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: Controller.sortColumn(0)
+                            onClicked: person.sortByColumn(0)
                         }
                     }
                     Text {
@@ -45,7 +45,7 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: Controller.sortColumn(1)
+                            onClicked: person.sortByColumn(1)
                         }
                     }
 
@@ -56,7 +56,7 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: Controller.sortColumn(2)
+                            onClicked: person.sortByColumn(2)
                         }
                     }
 
@@ -67,7 +67,7 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: Controller.sortColumn(3)
+                            onClicked: person.sortByColumn(3)
                         }
                     }
                 }

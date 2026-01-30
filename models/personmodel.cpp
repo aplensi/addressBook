@@ -44,7 +44,7 @@ QVariant PersonModel::data(const QModelIndex &index, int role) const
 
     const Person& pers = m_persons.at(index.row());
     switch (role) {
-        case idRole:      return pers.id();     break;
+        case idRole:        return pers.id();       break;
         case nameRole:      return pers.name();     break;
         case addressRole:   return pers.address();  break;
         case phoneRole:     return pers.phone();    break;
@@ -64,18 +64,6 @@ QVariantMap PersonModel::get(int index) const
         { "address", p.address() },
         { "phone", p.phone() }
     };
-}
-
-void PersonModel::sort(int column)
-{
-    switch (column) {
-    case 0:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.id() < b.id();});            break;
-    case 1:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.name() < b.name();});        break;
-    case 2:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.address() < b.address();});  break;
-    case 3:     std::sort(m_persons.begin(), m_persons.end(), [](const Person &a, const Person &b) {return a.phone() < b.phone();});      break;
-    default:                                                                                                                            break;
-    }
-    updateList();
 }
 
 void PersonModel::change(int id, QString name, QString address, QString phone)

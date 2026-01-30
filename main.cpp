@@ -1,6 +1,7 @@
 #include <models/personmodel.h>
 #include <controller/controller.h>
 #include <database/database.h>
+#include <models/proxymodel.h>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -13,9 +14,12 @@ int main(int argc, char *argv[])
     Database db;
     PersonModel model;
     Controller controller(db, db, model);
+    ProxyModel proxyModel(&engine);
+
+    proxyModel.setSourceModel(&model);
 
     engine.rootContext()->setContextProperty("Controller", &controller);
-    engine.rootContext()->setContextProperty("person", &model);
+    engine.rootContext()->setContextProperty("person", &proxyModel);
 
     engine.load(QUrl("qrc:/view/main.qml"));
 
