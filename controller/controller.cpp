@@ -11,10 +11,10 @@ void Controller::sortColumn(int index)
     m_model.sort(index);
 }
 
-void Controller::deleteButton(int index, int id)
+void Controller::deleteButton(int id)
 {
     m_personSource.remove(id);
-    m_model.remove(index);
+    m_model.remove(id);
 }
 
 void Controller::addButton(QString name, QString address, QString phone)

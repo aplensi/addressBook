@@ -144,7 +144,7 @@ Window {
             Button {
                 text: "Удалить"
                 onClicked: {
-                    Controller.deleteButton(list.currentIndex, idRow)
+                    Controller.deleteButton(idRow)
                     list.currentIndex = -1
                 }
             }

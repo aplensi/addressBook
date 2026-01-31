@@ -78,9 +78,14 @@ void PersonModel::change(int id, QString name, QString address, QString phone)
     updateList();
 }
 
-void PersonModel::remove(int index)
+void PersonModel::remove(int id)
 {
-    m_persons.remove(index);
+    for(int i = 0; i < m_persons.length(); i++){
+        if(m_persons[i].id() == id){
+            m_persons.remove(i);
+            break;
+        }
+    }
     updateList();
 }
 
