@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.0
+import QtQuick.Dialogs
 
 Window {
     id: mainW
@@ -9,9 +10,7 @@ Window {
     width: 600
     visible: true
     title: "Книга адресов"
-    property int buttonState: 0
     property int idRow: 0
-    property var row: null
     property string nameRow: ""
     property string addressRow: ""
     property string phoneRow: ""
@@ -151,18 +150,16 @@ Window {
             Button {
                 text: "Добавить"
                 onClicked: {
-                    buttonState = 0
-                    changeWindow.visible = true
-                    changeWindow.title = "Добавить запись"
-                    changeWindow.nameRow = ""
-                    changeWindow.addressRow = ""
-                    changeWindow.phoneRow = ""
+                    addWindow.visible = true
+                    addWindow.title = "Добавить запись"
+                    addWindow.nameRow = ""
+                    addWindow.addressRow = ""
+                    addWindow.phoneRow = ""
                 }
             }
             Button {
                 text: "Изменить"
                 onClicked:{
-                    buttonState = 1
                     changeWindow.visible = true
                     changeWindow.title = "Редактировать запись"
                     changeWindow.nameRow = ""
@@ -174,20 +171,21 @@ Window {
                     changeWindow.phoneRow = phoneRow
                 }
             }
-            Connections {
-                target: changeWindow
-                function onSaveButtonClicked(idRowS, nameRowS, addressRowS, phoneRowS) {
-                    if(buttonState === 0){
-                        Controller.addButton(nameRowS, addressRowS, phoneRowS)
-                    }else{
-                        Controller.changeButton(idRowS, nameRowS, addressRowS, phoneRowS)
-                    }
-                }
-            }
         }
     }
 
-    ChangeWindow{
+    ChangeWindow {
         id: changeWindow
+
+        onSaveButtonClicked: {
+            Controller.changeButton(idRowS, nameRowS, addressRowS, phoneRowS)
+        }
+    }
+    ChangeWindow {
+        id: addWindow
+
+        onSaveButtonClicked: {
+            Controller.addButton(nameRowS, addressRowS, phoneRowS)
+        }
     }
 }
